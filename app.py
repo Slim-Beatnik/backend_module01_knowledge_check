@@ -19,6 +19,7 @@ db = SQLAlchemy(model_class = Base)
 ma = Marshmallow()
 
 db.init_app(app) #adding our db extension to our app
+ma.init_app(app)
 
 service_mechanic = db.Table(
     'service_mechanic',
