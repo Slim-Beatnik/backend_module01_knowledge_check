@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
 from app.models import Mechanics, db
 
@@ -17,7 +18,14 @@ def create_mechanic():
 
     new_mechanic = Mechanics(**mechanic_data)
     db.session.add(new_mechanic)
-    db.session.commit()
+
+    # opted for IntegrityError handling here the error message is more explicit
+    # and would allow office admin to know how exactly what went wrong
+    try:
+        db.session.commit()
+    except IntegrityError as e:
+        db.session.rollback()
+        return jsonify({"error": e.orig.args[1]}), 409
 
     return mechanic_schema.jsonify(new_mechanic), 201
 
@@ -40,7 +48,7 @@ def update_mechanics(mechanics_id):
         return jsonify({"error": "Mechanic not found."}), 400
 
     try:
-        mechanics_data = mechanics_schema.load(request.json)
+        mechanics_data = mechanic_schema.load(request.json)
     except ValidationError as e:
         return jsonify(e.messages), 400
 
@@ -48,24 +56,18 @@ def update_mechanics(mechanics_id):
         setattr(mechanics, key, value)
 
     db.session.commit()
-    return mechanics_schema.jsonify(mechanics), 200
+    return mechanic_schema.jsonify(mechanics), 200
 
 
 @mechanics_bp.route("/<int:mechanics_id>", methods=["DELETE"])
 def delete_mechanics(mechanics_id):
-    mechanics = db.session.get(Mechanics, mechanics_id)
+    mechanic = db.session.get(Mechanics, mechanics_id)
 
-    if not mechanics:
-        return jsonify({"error": "Customer not found."}), 400
+    if not mechanic:
+        return jsonify({"error": "Mechanic not found."}), 400
 
-    db.session.delete(mechanics)
+    db.session.delete(mechanic)
     db.session.commit()
     return jsonify(
-        {"message": f"Customer id: {mechanics_id}, successfully deleted."},
+        {"message": f"Mechanic id: {mechanics_id}, successfully deleted."},
     ), 200
-
-
-# @mechanics_bp.route("/current_assignments", methods=["GET"])
-# def get_all_current_assignments():
-#     query = select(Mechanics).join(ServiceTickets).where(ServiceTickets.mechanics.any())
-#     mechanics = db.session.execute(query).scalars().all()

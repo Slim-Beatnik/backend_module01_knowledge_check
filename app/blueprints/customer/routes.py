@@ -20,6 +20,7 @@ def create_customer():
     )  # Checking our db for a customer with this email
     existing_customer = db.session.execute(query).scalars().all()
 
+    # opted to handle potential IntegrityError with simple error handling
     if existing_customer:
         return jsonify({"error": "Email already associated with an account."}), 400
 
