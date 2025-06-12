@@ -1,14 +1,48 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 
+from app.extensions import cache, limiter
 from app.models import Customer, db
+from app.utils.util import encode_token, token_required
 
 from . import customer_bp
-from .schemas import customer_schema, customers_schema
+from .schemas import customer_schema, customers_schema, login_schema
+
+
+@customer_bp.route("/login", methods=["POST"])
+def login():
+    try:
+        credentials = login_schema.load(request.json)
+        username = credentials["email"]
+        password = credentials["password"]
+    except KeyError:
+        return jsonify(
+            {"messages": "Invalid payload, expecting username and password"},
+        ), 400
+
+    query = select(Customer).where(Customer.email == username)
+    customer = db.session.execute(
+        query,
+    ).scalar_one_or_none()  # Query customer table for a customer with this email
+
+    if (
+        customer and customer.password == password
+    ):  # if we have a customer associated with the customername, validate the password
+        auth_token = encode_token(customer.id)  # , customer.role.role_name)
+
+        response = {
+            "status": "success",
+            "message": "Successfully Logged In",
+            "auth_token": auth_token,
+        }
+        return jsonify(response), 200
+    return jsonify({"messages": "Invalid email or password!"}), 401
 
 
 @customer_bp.route("/", methods=["POST"])
+@limiter.limit("5 per day")
 def create_customer():
     try:
         customer_data = customer_schema.load(request.json)
@@ -32,6 +66,7 @@ def create_customer():
 
 
 @customer_bp.route("/<int:customer_id>", methods=["GET"])
+@cache.cached(timeout=600)
 def get_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
 
@@ -41,6 +76,7 @@ def get_customer(customer_id):
 
 
 @customer_bp.route("/", methods=["GET"])
+@cache.cached(timeout=30)
 def get_customers():
     query = select(Customer)
     customers = db.session.execute(query).scalars().all()
@@ -52,7 +88,9 @@ def get_customers():
     ), 400
 
 
-@customer_bp.route("/<int:customer_id>", methods=["PUT"])
+@customer_bp.route("/", methods=["PUT"])
+@limiter.limit("5 per day")
+@token_required
 def update_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
 
@@ -71,7 +109,8 @@ def update_customer(customer_id):
     return customer_schema.jsonify(customer), 200
 
 
-@customer_bp.route("/<int:customer_id>", methods=["DELETE"])
+@customer_bp.route("/", methods=["DELETE"])
+@token_required
 def delete_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
 
@@ -79,7 +118,18 @@ def delete_customer(customer_id):
         return jsonify({"error": "Customer not found."}), 400
 
     db.session.delete(customer)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        customer.customer_removed_self = True
+        db.session.commit()
+        return jsonify(
+            {
+                "message": "Customer still attached to service tickets. Successfully marked for deletion",
+            },
+        ), 200
+
     return jsonify(
         {"message": f"Customer id: {customer_id}, successfully deleted."},
     ), 200

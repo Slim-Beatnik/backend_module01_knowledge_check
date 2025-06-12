@@ -30,6 +30,7 @@ class Customer(Base):
     email: Mapped[str] = mapped_column(db.String(360), nullable=False, unique=True)
     phone: Mapped[str] = mapped_column(db.String(11), nullable=False)
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
+    customer_removed_self: Mapped[bool] = mapped_column(default=False)
 
     service_tickets: Mapped[list["ServiceTickets"]] = db.relationship(
         back_populates="customer",

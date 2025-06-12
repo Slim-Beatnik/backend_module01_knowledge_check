@@ -3,6 +3,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 
 from app.models import Customer, Mechanics, ServiceTickets, db
+from app.utils.util import token_required
 
 from . import service_tickets_bp
 from .schemas import service_ticket_schema, service_tickets_schema
@@ -35,7 +36,7 @@ def create_service_ticket():
 
 
 @service_tickets_bp.route("/", methods=["GET"])
-def get_service_tickets():
+def get_all_service_tickets():
     query = select(ServiceTickets)
     service_tickets = db.session.execute(query).scalars().all()
 
@@ -53,6 +54,19 @@ def get_service_ticket(service_tickets_id):
     if service_tickets:
         return service_ticket_schema.jsonify(service_tickets), 200
     return jsonify({"error": "Service ticket not found."}), 400
+
+
+@service_tickets_bp.route("/my-tickets", methods=["GET"])
+@token_required
+def get_service_tickets_by_customer(customer_id):
+    customer = db.session.get(Customer, customer_id)
+    query = select(ServiceTickets).where(ServiceTickets.customer_id == customer_id)
+    service_tickets = db.session.execute(query).scalars().all()
+
+    if not service_tickets or not customer:
+        return jsonify({"error": "Customer not found."}), 404
+
+    return jsonify(service_tickets_schema.dump(service_tickets)), 200
 
 
 @service_tickets_bp.route(

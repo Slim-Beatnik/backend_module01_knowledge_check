@@ -3,6 +3,7 @@ from marshmallow import ValidationError
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+from app.extensions import limiter
 from app.models import Mechanics, db
 
 from . import mechanics_bp
@@ -10,6 +11,7 @@ from .schemas import mechanic_schema, mechanics_schema
 
 
 @mechanics_bp.route("/", methods=["POST"])
+@limiter.limit("100 per month")
 def create_mechanic():
     try:
         mechanic_data = mechanic_schema.load(request.json)
@@ -60,6 +62,7 @@ def update_mechanics(mechanics_id):
 
 
 @mechanics_bp.route("/<int:mechanics_id>", methods=["DELETE"])
+@limiter.limit("50 per month")  # probably not firing over 50 employees
 def delete_mechanics(mechanics_id):
     mechanic = db.session.get(Mechanics, mechanics_id)
 
