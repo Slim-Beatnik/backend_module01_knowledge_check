@@ -1,10 +1,11 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
-from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from app.extensions import limiter
-from app.models import Mechanics, db
+
+# app.models.get_all(table_class, many_schema)
+from app.models import Mechanics, db, get_all
 
 from . import mechanics_bp
 from .schemas import mechanic_schema, mechanics_schema
@@ -33,13 +34,9 @@ def create_mechanic():
 
 
 @mechanics_bp.route("/", methods=["GET"])
+# @cache.cached(timeout=30)
 def get_mechanics():
-    query = select(Mechanics)
-    mechanics = db.session.execute(query).scalars().all()
-
-    if len(mechanics):
-        return mechanics_schema.jsonify(mechanics), 200
-    return jsonify({"error": "No mechanics found."}), 400
+    return get_all(Mechanics, mechanics_schema)
 
 
 @mechanics_bp.route("/<int:mechanics_id>", methods=["PUT"])

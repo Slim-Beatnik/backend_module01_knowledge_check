@@ -1,7 +1,8 @@
 from datetime import date
 
+from flask import request
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import CheckConstraint
+from sqlalchemy import CheckConstraint, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -69,3 +70,16 @@ class Mechanics(Base):
         secondary="service_mechanic",
         back_populates="mechanics",
     )
+
+
+def get_all(table_class, many_schema):
+    try:
+        page = request.args.get("page", 1, type=int)
+        per_page = request.args.get("per_page", 10, type=int)
+        query = select(table_class)
+        output_obj = db.paginate(query, page=page, per_page=per_page)
+        return many_schema.jsonify(output_obj), 200
+    except:  # noqa: E722
+        query = select(table_class)
+        output_obj = db.session.execute(query).scalars().all()
+        return many_schema.jsonify(output_obj), 200

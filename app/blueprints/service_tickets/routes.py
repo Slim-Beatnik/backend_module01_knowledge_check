@@ -1,12 +1,18 @@
 from flask import jsonify, request
 from marshmallow import ValidationError
-from sqlalchemy import select
+from sqlalchemy import or_, select
 
-from app.models import Customer, Mechanics, ServiceTickets, db
+# app.models.get_all(table_class, many_schema)
+from app.models import Customer, Mechanics, ServiceTickets, db, get_all
 from app.utils.util import token_required
 
 from . import service_tickets_bp
-from .schemas import service_ticket_schema, service_tickets_schema
+from .schemas import (
+    edit_assigned_mechanics_schema,
+    return_service_ticket_schema,
+    service_ticket_schema,
+    service_tickets_schema,
+)
 
 
 @service_tickets_bp.route("/", methods=["POST"])
@@ -36,15 +42,9 @@ def create_service_ticket():
 
 
 @service_tickets_bp.route("/", methods=["GET"])
-def get_all_service_tickets():
-    query = select(ServiceTickets)
-    service_tickets = db.session.execute(query).scalars().all()
-
-    if len(service_tickets):
-        return service_tickets_schema.jsonify(service_tickets), 200
-    return jsonify(
-        {"error": "No service tickets found."},
-    ), 400
+# @cache.cached(timeout=30)
+def get_service_tickets():
+    return get_all(ServiceTickets, service_tickets_schema)
 
 
 @service_tickets_bp.route("/<int:service_tickets_id>", methods=["GET"])
@@ -56,6 +56,32 @@ def get_service_ticket(service_tickets_id):
     return jsonify({"error": "Service ticket not found."}), 400
 
 
+@service_tickets_bp.route("/<int:service_ticket_id>/edit_mechanics", methods=["PUT"])
+def edit_mechanics_assignments_by_service_ticket_id(service_ticket_id):
+    try:
+        st_edit_mechs = edit_assigned_mechanics_schema.load(request.json)
+    except ValidationError as e:
+        return jsonify(e.messages), 400
+
+    service_ticket = db.session.get(ServiceTickets, service_ticket_id)
+
+    for mechanic_id in st_edit_mechs["add_mechanic_ids"]:
+        mechanic = db.session.get(Mechanics, mechanic_id)
+
+        if mechanic and mechanic not in service_ticket.mechanics:
+            service_ticket.mechanics.append(mechanic)
+    print(service_ticket.mechanics)
+    for mechanic_id in st_edit_mechs["remove_mechanic_ids"]:
+        mechanic = db.session.get(Mechanics, mechanic_id)
+
+        if mechanic and mechanic in service_ticket.mechanics:
+            service_ticket.mechanics.remove(mechanic)
+    print(service_ticket.mechanics)
+    db.session.commit()
+    return return_service_ticket_schema.jsonify(service_ticket), 200
+
+
+# user based routes search
 @service_tickets_bp.route("/my-tickets", methods=["GET"])
 @token_required
 def get_service_tickets_by_customer(customer_id):
@@ -64,51 +90,63 @@ def get_service_tickets_by_customer(customer_id):
     service_tickets = db.session.execute(query).scalars().all()
 
     if not service_tickets or not customer:
-        return jsonify({"error": "Customer not found."}), 404
+        return jsonify(
+            {
+                "error": "Service ticket or customer not found. It's entirely possible this customer has no tickets.",
+            },
+        ), 404
 
     return jsonify(service_tickets_schema.dump(service_tickets)), 200
 
 
-@service_tickets_bp.route(
-    "/<int:service_ticket_id>/assign-mechanic/<int:mechanic_id>",
-    methods=["PUT"],
-)
-def assign_mechanic(service_ticket_id, mechanic_id):
-    service_ticket = db.session.get(ServiceTickets, service_ticket_id)
-    mechanic = db.session.get(Mechanics, mechanic_id)
-
-    if not service_ticket or not mechanic:
-        return jsonify({"error": "Service ticket or mechanic not found."}), 400
-    if mechanic in service_ticket.mechanics:
-        return jsonify(
-            {
-                "error": "This mechanic already assigned to this service ticket.",
-            },
-        ), 409
-    service_ticket.mechanics.append(mechanic)
-    db.session.commit()
-
-    return service_ticket_schema.jsonify(service_ticket), 200
+@service_tickets_bp.route("/my-tickets/sorted-most-recent", methods=["GET"])
+@token_required
+def get_most_recent_tickets(customer_id):
+    return get_service_tickets_by_customer(customer_id).sort(
+        lambda st: st.service_date,
+    ), 200
 
 
-@service_tickets_bp.route(
-    "/<int:service_ticket_id>/remove-mechanic/<int:mechanic_id>",
-    methods=["PUT"],
-)
-def dismiss_mechanic(service_ticket_id, mechanic_id):
-    service_ticket = db.session.get(ServiceTickets, service_ticket_id)
-    mechanic = db.session.get(Mechanics, mechanic_id)
-    print(service_ticket, mechanic)
+@service_tickets_bp.route("/my-tickets/search", methods=["GET"])
+@token_required
+def search_service_tickets(customer_id):
+    queries = {
+        "service_date": request.args.get("date"),
+        "vin": request.args.get("vin"),
+        "service_desc": request.args.get("description"),
+        "any": request.args.get("any"),
+    }
 
-    if not service_ticket or not mechanic:
-        return jsonify({"error": "Service ticket or mechanic not found."}), 400
-    if mechanic not in service_ticket.mechanics:
-        return jsonify(
-            {
-                "error": "This mechanic isn't assigned to this service ticket.",
-            },
-        ), 409
-    service_ticket.mechanics.remove(mechanic)
-    db.session.commit()
+    # learned a thing or two about select objects
+    # if no values in query select object initialized with customer_id
+    stmt = select(ServiceTickets).where(ServiceTickets.customer_id == customer_id)
+    filters = []
 
-    return service_ticket_schema.jsonify(service_ticket), 200
+    # Loop model columns matching provided queries -- skip 'any' and None values
+    for key, value in queries.items():
+        if key == "any" or not value:
+            continue
+        if key in ServiceTickets.__table__.columns:
+            column = getattr(ServiceTickets, key)
+            filters.append(column.like(f"%{value}%"))
+
+    # Add 'any' search across multiple columns
+    if queries.get("any"):
+        qry = f"%{queries['any']}%"
+        filters.append(
+            or_(
+                ServiceTickets.vin.like(qry),
+                ServiceTickets.service_desc.like(qry),
+                ServiceTickets.service_date.like(qry),
+            ),
+        )
+
+    if filters:
+        stmt = stmt.where(*filters)
+
+    filtered_service_tickets = db.session.execute(stmt).scalars().all()
+
+    if not filtered_service_tickets:
+        return jsonify({"message": "Filters failed to yield results."}), 404
+
+    return jsonify(service_tickets_schema.dump(filtered_service_tickets)), 200

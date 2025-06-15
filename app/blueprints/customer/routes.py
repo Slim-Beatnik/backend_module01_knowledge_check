@@ -4,7 +4,9 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from app.extensions import cache, limiter
-from app.models import Customer, db
+
+# app.models.get_all(table_class, many_schema)
+from app.models import Customer, db, get_all
 from app.utils.util import encode_token, token_required
 
 from . import customer_bp
@@ -76,16 +78,9 @@ def get_customer(customer_id):
 
 
 @customer_bp.route("/", methods=["GET"])
-@cache.cached(timeout=30)
+# @cache.cached(timeout=30)
 def get_customers():
-    query = select(Customer)
-    customers = db.session.execute(query).scalars().all()
-
-    if len(customers):
-        return customers_schema.jsonify(customers), 200
-    return jsonify(
-        {"error": "No customers found."},
-    ), 400
+    return get_all(Customer, customers_schema)
 
 
 @customer_bp.route("/", methods=["PUT"])
