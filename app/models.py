@@ -15,11 +15,19 @@ db = SQLAlchemy(model_class=Base)
 # ============= MODELS ===============================================================
 # order: Customer -> ServiceTickets -> Mechanics
 
-service_mechanic = db.Table(
-    "service_mechanic",
+service_tickets_has_mechanics = db.Table(
+    "service_tickets_has_mechanics",
     Base.metadata,
     db.Column("service_ticket_id", db.ForeignKey("service_tickets.id")),
     db.Column("mechanic_id", db.ForeignKey("mechanics.id")),
+)
+
+service_tickets_has_inventories = db.Table(
+    "service_tickets_has_inventories",
+    Base.metadata,
+    db.Column("service_ticket_id", db.ForeignKey("service_tickets.id")),
+    db.Column("inventory_id", db.ForeignKey("inventory.id")),
+    db.Column("quantity", db.Integer, nullable=False),
 )
 
 
@@ -31,10 +39,42 @@ class Customer(Base):
     email: Mapped[str] = mapped_column(db.String(360), nullable=False, unique=True)
     phone: Mapped[str] = mapped_column(db.String(11), nullable=False)
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
-    customer_removed_self: Mapped[bool] = mapped_column(default=False)
+    soft_delete: Mapped[bool] = mapped_column(default=False)
 
     service_tickets: Mapped[list["ServiceTickets"]] = db.relationship(
         back_populates="customer",
+    )
+
+
+class Inventory(Base):
+    __tablename__ = "inventory"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    product_name: Mapped[str] = mapped_column(
+        db.String(255),
+        unique=True,
+        nullable=False,
+    )
+    price: Mapped[float] = mapped_column(db.Float, nullable=False)
+    # if recalled, easily get associated service tickets
+    recalled: Mapped[bool] = mapped_column(db.Boolean, default=False)
+    # regular consumables will be altered
+    recallable: Mapped[bool] = mapped_column(db.Boolean, default=True)
+
+    no_longer_used: Mapped[bool] = mapped_column(db.Boolean, default=False)
+
+
+class Mechanics(Base):
+    __tablename__ = "mechanics"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(db.String(255), nullable=False)
+    email: Mapped[str] = mapped_column(db.String(360), nullable=False, unique=True)
+    phone: Mapped[str] = mapped_column(db.String(10), nullable=False)
+    password: Mapped[str] = mapped_column(db.String(255), nullable=False)
+    salary: Mapped[float] = mapped_column(db.Float, nullable=False)
+
+    service_tickets: Mapped[list["ServiceTickets"]] = db.relationship(
+        secondary="service_tickets_has_mechanics",
+        back_populates="mechanics",
     )
 
 
@@ -49,7 +89,7 @@ class ServiceTickets(Base):
 
     customer: Mapped["Customer"] = db.relationship(back_populates="service_tickets")
     mechanics: Mapped[list["Mechanics"]] = db.relationship(
-        secondary="service_mechanic",
+        secondary="service_tickets_has_mechanics",
         back_populates="service_tickets",
     )
 
@@ -58,20 +98,7 @@ class ServiceTickets(Base):
     )
 
 
-class Mechanics(Base):
-    __tablename__ = "mechanics"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(db.String(255), nullable=False)
-    email: Mapped[str] = mapped_column(db.String(360), nullable=False, unique=True)
-    phone: Mapped[str] = mapped_column(db.String(10), nullable=False)
-    salary: Mapped[float] = mapped_column(db.Float, nullable=False)
-
-    service_tickets: Mapped[list["ServiceTickets"]] = db.relationship(
-        secondary="service_mechanic",
-        back_populates="mechanics",
-    )
-
-
+# helper function for get from any of the schemas where many=True
 def get_all(table_class, many_schema):
     try:
         page = request.args.get("page", 1, type=int)

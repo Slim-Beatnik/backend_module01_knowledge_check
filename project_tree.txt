@@ -1,0 +1,41 @@
+\BACKEND_MODULE01_PROJECT
+|   .gitignore
+|   .python-version
+|   app.py
+|   config.py
+|   kh-ct-backend-module01_knowledge_check-repair_shop_db.postman_collection.json
+|   LICENSE.txt
+|   project_tree
+|   project_tree.txt
+|   pyproject.toml
+|   README.md
+|   requirements.txt
+|   uv.lock
+|           
++---\app
+    |   extensions.py
+    |   models.py
+    |   __init__.py
+    |   
+    +---\blueprints
+    |   +---\customer
+    |   |   |   routes.py
+    |   |   |   schemas.py
+    |   |   |   __init__.py
+    |   |
+    |   |           
+    |   +---\mechanics
+    |   |   |   routes.py
+    |   |   |   schemas.py
+    |   |   |   __init__.py
+    |   |           
+    |   \---\service_tickets
+    |       |   routes.py
+    |       |   schemas.py
+    |       |   __init__.py
+    |               
+    +---\utils
+        |   util.py
+ 
+
+        

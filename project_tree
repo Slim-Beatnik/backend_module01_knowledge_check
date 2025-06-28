@@ -4,10 +4,14 @@
 │   ├── __init__.py - create_app() lives here
 │   ├── extensions.py
 │   ├── /blueprints
-│		│		├──/customer
-│		│				├──__init__.py  - Initializt User Blueprint
-│		│				├── routes.py  - Create User Controllers/routes
-│		│				└── customerSchemas.py
+│	│		├──/customer
+│	│		|		├──__init__.py  - Initializt Customer Blueprint
+│	│		|		├── routes.py  - Create Customer Controllers/routes
+│	│		|		└── schemas.py
+|   |       └── /mechanics
+|   │		        ├──__init__.py  - Initializt Mechanics Blueprint
+│	│				├── routes.py  - Create Mechanics Controllers/routes
+│	│				└── schemas.py
 │   └── models.py
 ├── app.py
 └── config.py
