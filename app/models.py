@@ -27,7 +27,7 @@ service_tickets_has_inventories = db.Table(
     Base.metadata,
     db.Column("service_ticket_id", db.ForeignKey("service_tickets.id")),
     db.Column("inventory_id", db.ForeignKey("inventory.id")),
-    db.Column("quantity", db.Integer, nullable=False),
+    db.Column("quantity", db.Integer, default=1),
 )
 
 
@@ -62,6 +62,11 @@ class Inventory(Base):
 
     no_longer_used: Mapped[bool] = mapped_column(db.Boolean, default=False)
 
+    service_tickets: Mapped[list["ServiceTickets"]] = db.relationship(
+        secondary="service_tickets_has_inventories",
+        back_populates="inventories",
+    )
+
 
 class Mechanics(Base):
     __tablename__ = "mechanics"
@@ -92,6 +97,10 @@ class ServiceTickets(Base):
         secondary="service_tickets_has_mechanics",
         back_populates="service_tickets",
     )
+    inventories: Mapped[list["Inventory"]] = db.relationship(
+        secondary="service_tickets_has_inventories",
+        back_populates="service_tickets",
+    )
 
     __table_args__ = (
         CheckConstraint("CHAR_LENGTH(vin) = 17", name="check_vin_length"),
@@ -99,11 +108,13 @@ class ServiceTickets(Base):
 
 
 # helper function for get from any of the schemas where many=True
-def get_all(table_class, many_schema):
+def get_all(table_class, many_schema, filter_property=None, filter_value=None):
     try:
         page = request.args.get("page", 1, type=int)
         per_page = request.args.get("per_page", 10, type=int)
         query = select(table_class)
+        if filter_property and filter_value:
+            query = query.filter_by(filter_property.is_(filter_value))
         output_obj = db.paginate(query, page=page, per_page=per_page)
         return many_schema.jsonify(output_obj), 200
     except:  # noqa: E722

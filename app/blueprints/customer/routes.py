@@ -11,12 +11,13 @@ from app.utils.util import encode_token, role_required, token_required
 from . import customer_bp
 from .schemas import (
     customer_schema,
-    customers_schema,
     login_schema,
+    mechanic_view_customers_schema,
 )
 
 
 @customer_bp.route("/login", methods=["POST"])
+@limiter.limit("3 per 15 minutes")
 def login():
     try:
         credentials = login_schema.load(request.json)
@@ -36,10 +37,9 @@ def login():
     if not customer or customer.soft_delete:
         return jsonify({"messages": "Invalid email or password!"}), 401
 
-    if (
-        customer and customer.password == password
-    ):  # if we have a customer associated with the customername, validate the password
-        auth_token = encode_token(customer.id, "customer")  # , customer.role.role_name)
+    # if we have a customer associated with the customername, validate the password
+    if customer and customer.password == password:
+        auth_token = encode_token(customer.id, "customer")
 
         response = {
             "status": "success",
@@ -90,11 +90,12 @@ def get_customer(customer_id):
 # needs admin blueprint, this should be protected by admin role
 # @cache.cached(timeout=30)
 def get_customers():
-    return get_all(Customer, customers_schema)
+    return get_all(Customer, mechanic_view_customers_schema)
 
 
 @customer_bp.route("/", methods=["PUT"])
 @limiter.limit("6 per day")
+@token_required
 def update_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
 
@@ -131,26 +132,3 @@ def soft_delete_customer(customer_id):
             "message": "Customer successfully marked for deletion",
         },
     ), 200
-
-
-@customer_bp.route("/reset_password", methods=["POST"])
-@token_required
-def reset_password():
-    try:
-        data = request.json
-        customer_id = data.get("customer_id")
-        new_password = data.get("new_password")
-    except KeyError:
-        return jsonify(
-            {"error": "Invalid payload, expecting customer_id and new_password"},
-        ), 400
-
-    customer = db.session.get(Customer, customer_id)
-
-    if not customer:
-        return jsonify({"error": "Customer not found."}), 404
-
-    customer.password = new_password
-    db.session.commit()
-
-    return jsonify({"message": "Password successfully updated."}), 200

@@ -1,0 +1,3306 @@
+{
+	"info": {
+		"_postman_id": "17418974-ec04-43cf-bb6e-c9e5538bb325",
+		"name": "repair_shop_db",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45481439"
+	},
+	"item": [
+		{
+			"name": "C___",
+			"item": [
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "/customers - init 1 - 201/400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"kyle\",\r\n    \"email\": \"kyle@gmail.com\",\r\n    \"phone\": \"9714175138\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 2 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 3 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"aeslin\",\r\n    \"email\": \"ace@gmail.com\",\r\n    \"phone\": \"9713403030\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 4 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"dummy\",\r\n    \"email\": \"dummy@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 5 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"jaime\",\r\n    \"email\": \"jaime@gmail.com\",\r\n    \"phone\": \"1234567890\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - dup 4 email bad request - 400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"notdummy\",\r\n    \"email\": \"dummy@gmail.com\",\r\n    \"phone\": \"4003286403\",\r\n    \"password\": \"test400\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 6 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"sam\",\r\n    \"email\": \"sam@gmail.com\",\r\n    \"phone\": \"1234567891\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - init 7 hits limit - 429",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"joplin\",\r\n    \"email\": \"jops@gmail.com\",\r\n    \"phone\": \"1234567891\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - login customer 1, e:kyle@gmail.com, p:test - 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let token = pm.response.json().auth_token\r",
+											"pm.environment.set('customer1_token', token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "test1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "ed@repairshop.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"kyle@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - login customer 2, e:rev@gmail.com, p:test - 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let token = pm.response.json().auth_token\r",
+											"pm.environment.set('customer2_token', token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"rev@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mechanics",
+					"item": [
+						{
+							"name": "/mechanics - init 1 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ed\",\r\n    \"email\": \"ed@repairshop.com\",\r\n    \"phone\": \"9719719711\",\r\n    \"password\": \"test1\",\r\n    \"salary\": 199999.34\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - init 2 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"edd\",\r\n    \"email\": \"edd@repairshop.com\",\r\n    \"phone\": \"5035035033\",\r\n    \"password\": \"test2\",\r\n    \"salary\": 2.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - init 3 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"eddy\",\r\n    \"email\": \"eddy@repairshop.com\",\r\n    \"phone\": \"9289289288\",\r\n    \"password\": \"test3\",\r\n    \"salary\": 2.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - dup 3 email duplicate - 409",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"neddy\",\r\n    \"email\": \"eddy@repairshop.com\",\r\n    \"phone\": \"9859859855\",\r\n    \"password\": \"whocares\",\r\n    \"salary\": 23400.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - init 4 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"neddy\",\r\n    \"email\": \"neddy@repairshop.com\",\r\n    \"phone\": \"9859859855\",\r\n    \"password\": \"test4\",\r\n    \"salary\": 23400.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - init 5 - 201/400",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"contract employee\",\r\n    \"email\": \"jeff@repairshop.com\",\r\n    \"phone\": \"1234567890\",\r\n    \"password\": \"test5\",\r\n    \"salary\": 2.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/login - mechanic1 login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let token = pm.response.json().auth_token\r",
+											"pm.environment.set('mechanic1_token', token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "test1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "ed@repairshop.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ed@repairshop.com\",\r\n    \"password\": \"test1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/login - mechanic2 login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let token = pm.response.json().auth_token\r",
+											"pm.environment.set('mechanic2_token', token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "test1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "ed@repairshop.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ed@repairshop.com\",\r\n    \"password\": \"test1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Inventory",
+					"item": [
+						{
+							"name": "/inventory/ - init product 1 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"synthetic oil, house\",\r\n    \"price\": 13.54,\r\n    \"recallable\": false    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/ - init product 2 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"regular oil, house\",\r\n    \"price\": 9.99,\r\n    \"recallable\": false    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/ - init product 3 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"high-milage oil, house\",\r\n    \"price\": 9.99,\r\n    \"recallable\": false    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/ - init product 4 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"regular oil, x brand\",\r\n    \"price\": 12.00,\r\n    \"recallable\": false    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/ - init product 5 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"synthetic oil, x brand\",\r\n    \"price\": 12.00,\r\n    \"recallable\": false    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/ - init product 6 - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"tire, firestone brand\",\r\n    \"price\": 128.27,\r\n    \"recallable\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{mechanic1_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "ServiceTickets",
+					"item": [
+						{
+							"name": "/service_tickets/ - init 1 (customer 1) - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop1\",\r\n    \"service_date\": \"2022-11-11\",\r\n    \"service_desc\": \"windshield fluid refill\",\r\n    \"customer_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init 1 (customer 1) - 201/400 Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop1\",\r\n    \"service_date\": \"2025-10-12\",\r\n    \"service_desc\": \"oil change\",\r\n    \"customer_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init 2 (customer 3) - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop3\",\r\n    \"service_date\": \"2021-02-20\",\r\n    \"service_desc\": \"boot replacement\",\r\n    \"customer_id\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init 3 (customer 2) - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop2\",\r\n    \"service_date\": \"2017-08-30\",\r\n    \"service_desc\": \"gas filter line replacement\",\r\n    \"customer_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init bad customer id  - 404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop2\",\r\n    \"service_date\": \"2021-02-20\",\r\n    \"service_desc\": \"windshield replacement\",\r\n    \"customer_id\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init missing data (not customer_id) - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop2\",\r\n    \"service_date\": \"2017-08-30\",\r\n    \"customer_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/ - init 4 (customer 4) - 201/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vin\": \"abcdefghijklmnop4\",\r\n    \"service_date\": \"2009-11-08\",\r\n    \"service_desc\": \"my cookies, my ceiling, my oven\",\r\n    \"customer_id\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{mechanic1_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "_RUD",
+			"item": [
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "/customers - read all - 200/400",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/ - edit customer 1 - no phone bad request - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"revel@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/ - edit customer 2 - new email - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer2_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"revel@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/<id> - read 1 - 200/400 Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/ - delete customer 2 -200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer2_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - login customer 2 - cannot login - 401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let token = pm.response.json().auth_token\r",
+											"pm.environment.set('customer2_token', token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"rev@gmail.com\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers - read all - 200/400 Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/?page=1&per_page=2 - read all paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/?page=1&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/?page=2&per_page=2 - read all paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/?page=2&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/customers/?page=3&per_page=2 - read all paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/customers/?page=3&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"customers",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "3"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Inventory",
+					"item": [
+						{
+							"name": "/inventory - get all, including no_longer_used - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/current - get all, excluding no_longer_used - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/current",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/<inventory_id> - by id, excluding no_longer_used - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/<inventory_id> - by id, excluding no_longer_used - 200 Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_name\": \"synthetic oil, house\",\r\n    \"price\": 15.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/inventory/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/<inventory_id> - by id, excluding no_longer_used - 200 Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "inventory/<inventory_id> - by id, set to no_longer_used - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/search - all non-PK values searchable - 200/404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/search?name=a&price=1&recalled=0&recallable=1&no_longer_used=0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "a"
+										},
+										{
+											"key": "price",
+											"value": "1"
+										},
+										{
+											"key": "recalled",
+											"value": "0"
+										},
+										{
+											"key": "recallable",
+											"value": "1"
+										},
+										{
+											"key": "no_longer_used",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/shop - web storefront get all, !no_longer_used - only price and name - 200",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/shop",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"shop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/shop/product/<inventory_id> - web storefront inventory by id - only price and name - 200",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/shop/product/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"shop",
+										"product",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/inventory/shop/search - web storefront inventory search - only price and name - 200",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/inventory/shop/search?name=oil",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"inventory",
+										"shop",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "oil"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mechanics",
+					"item": [
+						{
+							"name": "/mechanics - read all - 200",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTA5OTQ4OTIsImlhdCI6MTc1MDk5MTI5Miwic3ViIjoiMSIsInJvbGUiOiJtZWNoYW5pYyJ9.LOEJrQTffV0pq-z9K6yUDzC-xWpbZuQ-Du2qAWCdWs4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/4 - update mechanic 4's name - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"email\": \"neddy@gmail.com\",\r\n        \"name\": \"neodore\",\r\n        \"phone\": \"9859859855\",\r\n        \"password\": \"test4\",\r\n        \"salary\": 23400.0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - read all - 200 Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/top_mechanics - show top 3 mechanics - 200",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/top-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"top-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/top_mechanics?limit=2 - show top 2 mechanics - 200",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/top-mechanics?limit=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"top-mechanics"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/9 - bad request - mechanic not found - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"email\": \"neddy@gmail.com\",\r\n        \"name\": \"neodore\",\r\n        \"phone\": \"9859859855\",\r\n        \"salary\": 23400.0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/9",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/5 - delete mechanic by id - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/5 - bad request mechanic not found - 400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"email\": \"neddy@gmail.com\",\r\n        \"name\": \"neodore\",\r\n        \"phone\": \"9859859855\",\r\n        \"salary\": 23400.0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics - read all - 200/400 Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/?page=1&per_page=2 - read all paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/?page=2&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/current-customer-search?id=1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/current-customer-search?id=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"current-customer-search"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/current-customer-search?name=a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/current-customer-search?name=a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"current-customer-search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/mechanics/deleted-customer-search?name=r",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/mechanics/deleted-customer-search?name=r",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"mechanics",
+										"deleted-customer-search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "r"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ServiceTickets",
+					"item": [
+						{
+							"name": "/service_tickets - read all - 200/400",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/?page=1&per_page=2 - paginate - 200/400",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/?page=1&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/1 - read service tickets by id - 200/400",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"rev\",\r\n    \"email\": \"rev@gmail.com\",\r\n    \"phone\": \"5033286403\",\r\n    \"password\": \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/4/edit-mechanics - edit mechanic assignment on service_tickets - add [1,2], remove [3,4] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_mechanic_ids\": [1,2],\r\n    \"remove_mechanic_ids\": [3,4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/4/edit-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"4",
+										"edit-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/4/edit-mechanics - edit mechanic assignment on service_tickets - add [1,3], remove[2,4] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_mechanic_ids\": [1, 3],\r\n    \"remove_mechanic_ids\": [2, 4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/4/edit-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"4",
+										"edit-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/1/edit-mechanics - edit mechanic assignment on service_tickets - add [1,3], remove[2,4] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_mechanic_ids\": [1, 3],\r\n    \"remove_mechanic_ids\": [2, 4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/1/edit-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1",
+										"edit-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/2/edit-mechanics - edit mechanic assignment on service_tickets - add [1,3], remove[2,4] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_mechanic_ids\": [1, 3],\r\n    \"remove_mechanic_ids\": [2, 4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/2/edit-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"2",
+										"edit-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/3/edit-mechanics - edit mechanic assignment on service_tickets - add [1,2], remove [3,4] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_mechanic_ids\": [1,2],\r\n    \"remove_mechanic_ids\": [3,4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/3/edit-mechanics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"3",
+										"edit-mechanics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/1/edit-inventory - edit inventory on service_tickets - add [1,6], remove[] - 200/400 Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_inventory_ids\": [1,6],\r\n    \"remove_inventory_ids\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/1/edit-inventory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1",
+										"edit-inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/1/edit-inventory - edit inventory on service_tickets - add [3], remove[1] - 200/400",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"add_inventory_ids\": [3],\r\n    \"remove_inventory_ids\": [1]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/1/edit-inventory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"1",
+										"edit-inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/?page=1&per_page=2 - read all paginated",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/?page=1&per_page=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/assigned-tickets/search?any=oil - get tickets currently assigned to logged in mechanic - 200/404",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/assigned-tickets/search?any=oil",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"assigned-tickets",
+										"search"
+									],
+									"query": [
+										{
+											"key": "any",
+											"value": "oil"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/my-tickets - logged in customer's tickets (id:1) - 200/404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/my-tickets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"my-tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/service_tickets/my-tickets - logged in customer's tickets (id:2) - 200/404",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer2_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/my-tickets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"my-tickets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/assigned-tickets/search?any=oil - get tickets currently assigned to logged in mechanic - 200/404",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic1_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/service_tickets/assigned-tickets/search?any=oil",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"service_tickets",
+										"assigned-tickets",
+										"search"
+									],
+									"query": [
+										{
+											"key": "any",
+											"value": "oil"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "customer1_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer2_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "mechanic1_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "mechanic2_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

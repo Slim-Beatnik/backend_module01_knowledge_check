@@ -2,15 +2,20 @@ from datetime import UTC, datetime, timedelta
 from functools import wraps
 
 import jose
-from flask import jsonify, request
+from flask import g, jsonify, request
 from jose import jwt
 
 SECRET_KEY = "A0P6RS_get_shwifty"
 
+ROLE_SPECIFIC_TIMEOUT = {
+    "mechanic": 8,
+    "admin": 24,
+}
+
 
 def encode_token(user_id, role):
     payload = {
-        "exp": datetime.now(UTC) + timedelta(hours=1),
+        "exp": datetime.now(UTC) + timedelta(hours=ROLE_SPECIFIC_TIMEOUT.get(role, 1)),
         "iat": datetime.now(UTC),
         "sub": str(user_id),
         "role": role,
@@ -61,9 +66,10 @@ def role_required(f):
             role = data["role"]
 
             if role not in ["mechanic", "admin"]:
-                return jsonify({"message": "Forbidden: Unauthorized role"}), 403
+                return jsonify({"message": "Forbidden: User not authorized."}), 403
 
-            request.user_id = user_id
+            g.user_id = user_id
+            g.user_role = role
 
         except jose.exceptions.ExpiredSignatureError:
             return jsonify({"message": "Token has expired"}), 401

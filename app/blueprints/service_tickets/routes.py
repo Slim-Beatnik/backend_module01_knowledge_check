@@ -1,14 +1,15 @@
-from flask import jsonify, request
+from flask import g, jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import or_, select
 
 # app.models.get_all(table_class, many_schema)
-from app.models import Customer, Mechanics, ServiceTickets, db, get_all
+from app.models import Customer, Inventory, Mechanics, ServiceTickets, db, get_all
 from app.utils.util import role_required, token_required
 
 from . import service_tickets_bp
 from .schemas import (
     edit_assigned_mechanics_schema,
+    edit_inventory_schema,
     return_service_ticket_schema,
     service_ticket_schema,
     service_tickets_schema,
@@ -44,6 +45,7 @@ def create_service_ticket():
 
 @service_tickets_bp.route("/", methods=["GET"])
 # @cache.cached(timeout=30)
+@role_required
 def get_service_tickets():
     return get_all(ServiceTickets, service_tickets_schema)
 
@@ -57,7 +59,7 @@ def get_service_ticket(service_tickets_id):
     return jsonify({"error": "Service ticket not found."}), 400
 
 
-@service_tickets_bp.route("/<int:service_ticket_id>/edit_mechanics", methods=["PUT"])
+@service_tickets_bp.route("/<int:service_ticket_id>/edit-mechanics", methods=["PUT"])
 @role_required
 def edit_mechanics_assignments_by_service_ticket_id(service_ticket_id):
     try:
@@ -72,13 +74,37 @@ def edit_mechanics_assignments_by_service_ticket_id(service_ticket_id):
 
         if mechanic and mechanic not in service_ticket.mechanics:
             service_ticket.mechanics.append(mechanic)
-    print(service_ticket.mechanics)
+
     for mechanic_id in st_edit_mechs["remove_mechanic_ids"]:
         mechanic = db.session.get(Mechanics, mechanic_id)
 
         if mechanic and mechanic in service_ticket.mechanics:
             service_ticket.mechanics.remove(mechanic)
-    print(service_ticket.mechanics)
+    db.session.commit()
+    return return_service_ticket_schema.jsonify(service_ticket), 200
+
+
+@service_tickets_bp.route("/<int:service_ticket_id>/edit-inventory", methods=["PUT"])
+@role_required
+def edit_inventory_by_service_ticket_id(service_ticket_id):
+    try:
+        st_edit_prods = edit_inventory_schema.load(request.json)
+    except ValidationError as e:
+        return jsonify(e.messages), 400
+
+    service_ticket = db.session.get(ServiceTickets, service_ticket_id)
+
+    for inventory_id in st_edit_prods["add_inventory_ids"]:
+        inventory = db.session.get(Inventory, inventory_id)
+
+        if inventory and inventory not in service_ticket.inventories:
+            service_ticket.inventories.append(inventory)
+
+    for inventory_id in st_edit_prods["remove_inventory_ids"]:
+        inventory = db.session.get(Inventory, inventory_id)
+
+        if inventory and inventory in service_ticket.inventories:
+            service_ticket.inventories.remove(inventory)
     db.session.commit()
     return return_service_ticket_schema.jsonify(service_ticket), 200
 
@@ -101,72 +127,21 @@ def get_service_tickets_by_customer(customer_id):
     return jsonify(service_tickets_schema.dump(service_tickets)), 200
 
 
-@service_tickets_bp.route("/my-tickets/most-recent", methods=["GET"])
-@token_required
-def get_most_recent_tickets(customer_id):
-    return get_service_tickets_by_customer(customer_id).sort(
-        lambda st: st.service_date,
-    ), 200
-
-
-@service_tickets_bp.route("/my-tickets/search", methods=["GET"])
-@token_required
-def search_service_tickets(customer_id):
-    queries = {
-        "service_date": request.args.get("date"),
-        "vin": request.args.get("vin"),
-        "service_desc": request.args.get("description"),
-        "any": request.args.get("any"),
-    }
-
-    # learned a thing or two about select objects
-    # if no values in query select object initialized with customer_id
-    stmt = select(ServiceTickets).where(ServiceTickets.customer_id == customer_id)
-    filters = []
-
-    # Loop model columns matching provided queries -- skip 'any' and None values
-    for key, value in queries.items():
-        if key == "any" or not value:
-            continue
-        if key in ServiceTickets.__table__.columns:
-            column = getattr(ServiceTickets, key)
-            filters.append(column.like(f"%{value}%"))
-
-    # Add 'any' search across multiple columns
-    if queries.get("any"):
-        qry = f"%{queries['any']}%"
-        filters.append(
-            or_(
-                ServiceTickets.vin.like(qry),
-                ServiceTickets.service_desc.like(qry),
-                ServiceTickets.service_date.like(qry),
-            ),
-        )
-
-    if filters:
-        stmt = stmt.where(*filters)
-
-    filtered_service_tickets = db.session.execute(stmt).scalars().all()
-
-    if not filtered_service_tickets:
-        return jsonify({"message": "Filters failed to yield results."}), 404
-
-    return jsonify(service_tickets_schema.dump(filtered_service_tickets)), 200
-
-
 @service_tickets_bp.route("/assigned-tickets/search", methods=["GET"])
 @role_required
-def search_assigned_service_tickets(mechanic_id):
+def search_assigned_service_tickets():
     queries = {
         "service_date": request.args.get("date"),
         "vin": request.args.get("vin"),
         "service_desc": request.args.get("description"),
         "any": request.args.get("any"),
     }
-
+    mechanic_id = g.user_id
     # learned a thing or two about select objects
     # if no values in query select object initialized with customer_id
-    stmt = select(ServiceTickets).where(ServiceTickets.mechanic_id == mechanic_id)
+    stmt = select(ServiceTickets).where(
+        ServiceTickets.mechanics.any(mechanic_id == Mechanics.id),
+    )
     filters = []
 
     # Loop model columns matching provided queries -- skip 'any' and None values

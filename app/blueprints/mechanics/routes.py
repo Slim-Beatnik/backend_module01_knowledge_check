@@ -7,11 +7,21 @@ from app.blueprints.customer.schemas import mechanic_view_customers_schema
 from app.extensions import limiter
 
 # app.models.get_all(table_class, many_schema)
-from app.models import Customer, Mechanics, db, get_all, service_tickets_has_mechanics
+from app.models import (
+    Customer,
+    Mechanics,
+    db,
+    get_all,
+    service_tickets_has_mechanics,
+)
 from app.utils.util import encode_token, role_required
 
 from . import mechanics_bp
-from .schemas import mechanic_schema, mechanics_schema, role_login_schema
+from .schemas import (
+    mechanic_schema,
+    mechanics_schema,
+    role_login_schema,
+)
 
 
 @mechanics_bp.route("/", methods=["POST"])
@@ -58,7 +68,7 @@ def login():
         auth_token = encode_token(
             mechanic.id,
             "mechanic",
-        )  # , mechanics.role.role_name)
+        )
 
         response = {
             "status": "success",
@@ -78,7 +88,10 @@ def get_mechanics():
 
 @mechanics_bp.route("/top-mechanics", methods=["GET"])
 def get_top_mechanics():
-    count_st_id = func.Count(service_tickets_has_mechanics.c.service_tickets_id)
+    limit = request.args.get("limit")
+    count_st_id = func.Count(
+        service_tickets_has_mechanics.c.service_ticket_id,
+    )
     stmt = (
         select(
             Mechanics,
@@ -91,10 +104,16 @@ def get_top_mechanics():
         .order_by(
             count_st_id.desc(),
         )
-        .limit(3)
+        .limit(limit or 3)
     )
-
-    db.session.execute(stmt).scalars().all()
+    results = db.session.execute(stmt).all()
+    top_mechanics = {}
+    for index, (mechanic, ticket_count) in enumerate(results):
+        top_mechanics[index + 1] = {
+            "name": mechanic.name,
+            "ticket_count": ticket_count,
+        }
+    return jsonify(top_mechanics), 200
 
 
 @mechanics_bp.route("/<int:mechanic_id>", methods=["PUT"])
@@ -117,10 +136,11 @@ def update_mechanic(mechanic_id):
     return mechanic_schema.jsonify(mechanic), 200
 
 
-@mechanics_bp.route("/customer_search", methods=["GET"])
+@mechanics_bp.route("/current-customer-search", methods=["GET"])
 @role_required
-def search_for_customer(user_id):
+def search_for_customer():
     queries = {
+        "id": request.args.get("id"),
         "name": request.args.get("name"),
         "email": request.args.get("email"),
         "phone": request.args.get("phone"),
@@ -128,7 +148,7 @@ def search_for_customer(user_id):
     }
 
     # search non-deleted customers
-    stmt = select(Customer).where(not Customer.soft_delete)
+    stmt = select(Customer).where(Customer.soft_delete.is_(False))
     filters = []
 
     # Loop model columns matching provided queries -- skip 'any' and None values
@@ -153,19 +173,70 @@ def search_for_customer(user_id):
     if filters:
         stmt = stmt.where(*filters)
 
-    filtered_customer = db.session.execute(stmt).scalars().all()
+    filtered_customers = db.session.execute(stmt).scalars().all()
 
-    if not filtered_customer:
+    if not filtered_customers:
         return jsonify({"message": "Filters failed to yield results."}), 404
 
     return jsonify(
-        {"message": f"{user_id} searched"},
-        mechanic_view_customers_schema.dump(filtered_customer),
+        {
+            "result": mechanic_view_customers_schema.dump(filtered_customers),
+        },
+    ), 200
+
+
+@mechanics_bp.route("/deleted-customer-search", methods=["GET"])
+@role_required
+def search_for_deleted_customer():
+    queries = {
+        "id": request.args.get("id"),
+        "name": request.args.get("name"),
+        "email": request.args.get("email"),
+        "phone": request.args.get("phone"),
+        "any": request.args.get("any"),
+    }
+
+    # search non-deleted customers
+    stmt = select(Customer).where(Customer.soft_delete.is_(True))
+    filters = []
+
+    # Loop model columns matching provided queries -- skip 'any' and None values
+    for key, value in queries.items():
+        if key == "any" or not value:
+            continue
+        if key in Customer.__table__.columns:
+            column = getattr(Customer, key)
+            filters.append(column.like(f"%{value}%"))
+
+    # Add 'any' search across multiple columns
+    if queries.get("any"):
+        qry = f"%{queries['any']}%"
+        filters.append(
+            or_(
+                Customer.name.like(qry),
+                Customer.email.like(qry),
+                Customer.phone.like(qry),
+            ),
+        )
+
+    if filters:
+        stmt = stmt.where(*filters)
+
+    filtered_customers = db.session.execute(stmt).scalars().all()
+
+    if not filtered_customers:
+        return jsonify({"message": "Filters failed to yield results."}), 404
+
+    return jsonify(
+        {
+            "result": mechanic_view_customers_schema.dump(filtered_customers),
+        },
     ), 200
 
 
 @mechanics_bp.route("/<int:mechanics_id>", methods=["DELETE"])
-@limiter.limit("50 per month")  # probably not firing over 50 employees
+@limiter.limit("5 per month")  # probably not firing over 50 employees
+@role_required
 def delete_mechanics(mechanics_id):
     mechanic = db.session.get(Mechanics, mechanics_id)
 
